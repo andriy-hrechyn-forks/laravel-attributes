@@ -33,7 +33,7 @@ class MigrateCommand extends Command
 
         $path = config('rinvex.attributes.autoload_migrations') ?
             'vendor/andriy-hrechyn-forks/laravel-attributes/database/migrations' :
-            'database/migrations/rinvex/laravel-attributes';
+            'database/migrations/andriy-hrechyn-forks/laravel-attributes';
 
         if (file_exists($path)) {
             $this->call('migrate', [
