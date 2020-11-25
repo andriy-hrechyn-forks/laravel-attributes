@@ -54,7 +54,7 @@ class AttributeCreationTest extends TestCase
 
     protected function createAttribute($attributes = [])
     {
-        return app('rinvex.attributes.attribute')->create(array_merge([
+        return app('attributes.model')->create(array_merge([
             'type' => 'integer',
             'name' => 'Count',
             'entities' => [User::class],

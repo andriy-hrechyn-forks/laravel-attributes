@@ -221,7 +221,7 @@ You can call the `'rinvex.attributes.entities'` service from anywhere in your ap
 Like any normal Eloquent model you can create attributes as follows:
 
 ```php
-app('rinvex.attributes.attribute')->create([
+app('attributes.model')->create([
     'slug' => 'size',
     'type' => 'varchar',
     'name' => 'Product Size',
@@ -234,7 +234,7 @@ app('rinvex.attributes.attribute')->create([
 Whenever you need to get entities attached to a specific attribute, you can do as follows:
 
 ```php
-$attribute = app('rinvex.attributes.attribute')->find(1);
+$attribute = app('attributes.model')->find(1);
 
 // Get attribute entities collection
 $attribute->entities

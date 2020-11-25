@@ -8,27 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 use Rinvex\Attributes\Models\Attribute;
 use Illuminate\Support\Collection as BaseCollection;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Rinvex\Attributes\Models\Value;
 
 class ValueCollection extends EloquentCollection
 {
     /**
      * The entity this value collection belongs to.
      *
-     * @var \Illuminate\Database\Eloquent\Model
+     * @var Model
      */
     protected $entity;
 
     /**
      * The attribute this value collection is storing.
      *
-     * @var \Rinvex\Attributes\Models\Attribute
+     * @var Attribute
      */
     protected $attribute;
 
     /**
      * Link the entity and attribute to this value collection.
      *
-     * @param \Illuminate\Database\Eloquent\Model $entity
+     * @param Model $entity
      * @param $attribute
      *
      * @return $this
@@ -44,7 +45,7 @@ class ValueCollection extends EloquentCollection
     /**
      * Add new values to the value collection.
      *
-     * @param \Illuminate\Support\Collection|array $values
+     * @param BaseCollection|array $values
      *
      * @return $this
      */
@@ -67,7 +68,7 @@ class ValueCollection extends EloquentCollection
     /**
      * Replace current values with the given values.
      *
-     * @param \Illuminate\Support\Collection|array $values
+     * @param BaseCollection|array $values
      *
      * @return $this
      */
@@ -106,7 +107,7 @@ class ValueCollection extends EloquentCollection
      *
      * @param mixed $value
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
     protected function buildValue($value): Model
     {
@@ -128,9 +129,9 @@ class ValueCollection extends EloquentCollection
     /**
      * Build value instances from the given array.
      *
-     * @param \Illuminate\Support\Collection|array $values
+     * @param BaseCollection|array $values
      *
-     * @return \Rinvex\Attributes\Models\Value[]
+     * @return Value[]
      */
     protected function buildValues($values)
     {

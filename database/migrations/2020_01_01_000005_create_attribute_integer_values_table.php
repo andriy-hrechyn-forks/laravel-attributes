@@ -15,7 +15,7 @@ class CreateAttributeIntegerValuesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(config('rinvex.attributes.tables.attribute_integer_values'), function (Blueprint $table) {
+        Schema::create('attribute_integer_values', function (Blueprint $table) {
             // Columns
             $table->increments('id');
             $table->integer('content');
@@ -25,7 +25,7 @@ class CreateAttributeIntegerValuesTable extends Migration
             $table->timestamps();
 
             // Indexes
-            $table->foreign('attribute_id')->references('id')->on(config('rinvex.attributes.tables.attributes'))
+            $table->foreign('attribute_id')->references('id')->on('attributes')
                   ->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -37,6 +37,6 @@ class CreateAttributeIntegerValuesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists(config('rinvex.attributes.tables.attribute_integer_values'));
+        Schema::dropIfExists('attribute_integer_values');
     }
 }

@@ -6,11 +6,11 @@ namespace Rinvex\Attributes\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Attributes\Models\Attribute;
-use Rinvex\Support\Traits\ConsoleTools;
 use Rinvex\Attributes\Models\AttributeEntity;
 use Rinvex\Attributes\Console\Commands\MigrateCommand;
 use Rinvex\Attributes\Console\Commands\PublishCommand;
 use Rinvex\Attributes\Console\Commands\RollbackCommand;
+use Rinvex\Attributes\Traits\ConsoleTools;
 
 class AttributesServiceProvider extends ServiceProvider
 {
@@ -36,14 +36,14 @@ class AttributesServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.attributes');
 
         // Bind eloquent models to IoC container
-        $this->app->singleton('rinvex.attributes.attribute', $attributeyModel = $this->app['config']['rinvex.attributes.models.attribute']);
-        $attributeyModel === Attribute::class || $this->app->alias('rinvex.attributes.attribute', Attribute::class);
+        $this->app->singleton('attributes.model', $attributeyModel = $this->app['config']['rinvex.attributes.models.attribute']);
+        $attributeyModel === Attribute::class || $this->app->alias('attributes.model', Attribute::class);
 
-        $this->app->singleton('rinvex.attributes.attribute_entity', $attributeEntityModel = $this->app['config']['rinvex.attributes.models.attribute_entity']);
-        $attributeEntityModel === AttributeEntity::class || $this->app->alias('rinvex.attributes.attribute_entity', AttributeEntity::class);
+        $this->app->singleton('attributes.entity', $attributeEntityModel = $this->app['config']['rinvex.attributes.models.attribute_entity']);
+        $attributeEntityModel === AttributeEntity::class || $this->app->alias('attributes.entity', AttributeEntity::class);
 
         // Register attributes entities
-        $this->app->singleton('rinvex.attributes.entities', function ($app) {
+        $this->app->singleton('attributes.entities', function ($app) {
             return collect();
         });
 
@@ -51,9 +51,6 @@ class AttributesServiceProvider extends ServiceProvider
         $this->registerCommands($this->commands);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function boot()
     {
         // Publish Resources

@@ -4,28 +4,32 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Models\Type;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Rinvex\Attributes\Models\Attribute;
 use Rinvex\Attributes\Models\Value;
 
 /**
  * Rinvex\Attributes\Models\Type\Text.
  *
- * @property int                                                $id
- * @property string                                             $content
- * @property int                                                $attribute_id
- * @property int                                                $entity_id
- * @property string                                             $entity_type
- * @property \Carbon\Carbon|null                                $created_at
- * @property \Carbon\Carbon|null                                $updated_at
- * @property-read \Rinvex\Attributes\Models\Attribute           $attribute
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $entity
+ * @property int                  $id
+ * @property string               $content
+ * @property int                  $attribute_id
+ * @property int                  $entity_id
+ * @property string               $entity_type
+ * @property Carbon|null          $created_at
+ * @property Carbon|null          $updated_at
+ * @property-read Attribute       $attribute
+ * @property-read Model|\Eloquent $entity
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Text whereAttributeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Text whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Text whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Text whereEntityId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Text whereEntityType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Text whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\Type\Text whereUpdatedAt($value)
+ * @method static Builder|Text whereAttributeId($value)
+ * @method static Builder|Text whereContent($value)
+ * @method static Builder|Text whereCreatedAt($value)
+ * @method static Builder|Text whereEntityId($value)
+ * @method static Builder|Text whereEntityType($value)
+ * @method static Builder|Text whereId($value)
+ * @method static Builder|Text whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Text extends Value
@@ -34,10 +38,10 @@ class Text extends Value
      * {@inheritdoc}
      */
     protected $casts = [
-        'content' => 'string',
+        'content'      => 'string',
         'attribute_id' => 'integer',
-        'entity_id' => 'integer',
-        'entity_type' => 'string',
+        'entity_id'    => 'integer',
+        'entity_type'  => 'string',
     ];
 
     /**
@@ -49,12 +53,12 @@ class Text extends Value
     {
         parent::__construct($attributes);
 
-        $this->setTable(config('rinvex.attributes.tables.attribute_text_values'));
+        $this->setTable('attribute_text_values');
         $this->setRules([
-            'content' => 'required|string|max:10000',
-            'attribute_id' => 'required|integer|exists:'.config('rinvex.attributes.tables.attributes').',id',
-            'entity_id' => 'required|integer',
-            'entity_type' => 'required|string|strip_tags|max:150',
+            'content'      => 'required|string|max:10000',
+            'attribute_id' => 'required|integer|exists:attributes,id',
+            'entity_id'    => 'required|integer',
+            'entity_type'  => 'required|string|strip_tags|max:150',
         ]);
     }
 }

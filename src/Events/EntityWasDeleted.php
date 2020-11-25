@@ -13,7 +13,7 @@ class EntityWasDeleted
     /**
      * Handle the entity deletion.
      *
-     * @param \Illuminate\Database\Eloquent\Model $entity
+     * @param Entity $entity
      *
      * @return void
      */

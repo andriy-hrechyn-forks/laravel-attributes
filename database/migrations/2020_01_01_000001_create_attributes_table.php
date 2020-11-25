@@ -15,7 +15,7 @@ class CreateAttributesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(config('rinvex.attributes.tables.attributes'), function (Blueprint $table) {
+        Schema::create('attributes', function (Blueprint $table) {
             // Columns
             $table->increments('id');
             $table->string('slug');
@@ -41,7 +41,7 @@ class CreateAttributesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists(config('rinvex.attributes.tables.attributes'));
+        Schema::dropIfExists('attributes');
     }
 
     /**

@@ -13,7 +13,7 @@ class RelationBuilder
     /**
      * Build the relations for the entity attributes.
      *
-     * @param \Illuminate\Database\Eloquent\Model $entity
+     * @param Entity $entity
      *
      * @return void
      */
@@ -34,10 +34,10 @@ class RelationBuilder
     /**
      * Generate the entity attribute relation closure.
      *
-     * @param \Illuminate\Database\Eloquent\Model $entity
-     * @param \Rinvex\Attributes\Models\Attribute $attribute
+     * @param Entity    $entity
+     * @param Attribute $attribute
      *
-     * @return \Closure
+     * @return Closure
      */
     protected function getRelationClosure(Entity $entity, Attribute $attribute): Closure
     {

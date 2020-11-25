@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Traits;
 
-use Schema;
+use Illuminate\Support\Facades\Schema;
 use Closure;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -25,14 +25,14 @@ trait Attributable
     /**
      * The entity attributes.
      *
-     * @var \Illuminate\Database\Eloquent\Collection
+     * @var Collection
      */
     protected static $entityAttributes;
 
     /**
      * The entity attribute value trash.
      *
-     * @var \Illuminate\Support\Collection
+     * @var BaseCollection
      */
     protected $entityAttributeValueTrash;
 
@@ -152,31 +152,18 @@ trait Attributable
     /**
      * Get the entity attributes.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
     public function getEntityAttributes(): Collection
     {
         $morphClass = $this->getMorphClass();
         static::$entityAttributes = static::$entityAttributes ?? collect();
 
-        if (! static::$entityAttributes->has($morphClass) && Schema::hasTable(config('rinvex.attributes.tables.attribute_entity'))) {
+        if (! static::$entityAttributes->has($morphClass) && Schema::hasTable('attribute_entity')) {
             $locale = app()->getLocale();
 
-            /* This is a trial to implement per resource attributes,
-               it's working but I don't like current implementation.
-            $routeParam = request()->route($morphClass);
-
-            // @TODO: This is REALLY REALLY BAD DESIGN!! But can't figure out a better way for now!!
-            // Refactor required, we need to catch `$this` itself, we should NOT use request and routes here!!
-            // But still at this very early stage, `$this` still not bound to model's data, so it's just empty object!
-            $entityId = $routeParam && collect(class_uses_recursive(static::class))->contains(HashidsTrait::class) && ! is_numeric($routeParam)
-                ? optional(Hashids::decode($routeParam))[0] : $routeParam;
-
-            $attributes = app('rinvex.attributes.attribute_entity')->where('entity_type', $morphClass)->where('entity_id', $entityId)->get()->pluck('attribute_id');
-             */
-
-            $attributes = app('rinvex.attributes.attribute_entity')->where('entity_type', $morphClass)->get()->pluck('attribute_id');
-            static::$entityAttributes->put($morphClass, app('rinvex.attributes.attribute')->whereIn('id', $attributes)->orderBy('sort_order', 'ASC')->orderBy("name->\${$locale}", 'ASC')->get()->keyBy('slug'));
+            $attributes = app('attributes.entity')->where('entity_type', $morphClass)->get()->pluck('attribute_id');
+            static::$entityAttributes->put($morphClass, app('attributes.model')->whereIn('id', $attributes)->orderBy('sort_order', 'ASC')->orderBy("name->\${$locale}", 'ASC')->get()->keyBy('slug'));
         }
 
         return static::$entityAttributes->get($morphClass) ?? new Collection();
@@ -246,7 +233,7 @@ trait Attributable
     /**
      * Get the entity attribute value trash.
      *
-     * @return \Illuminate\Support\Collection
+     * @return BaseCollection
      */
     public function getEntityAttributeValueTrash(): BaseCollection
     {
@@ -377,8 +364,8 @@ trait Attributable
     /**
      * Set the entity attribute value.
      *
-     * @param \Rinvex\Attributes\Models\Attribute $attribute
-     * @param mixed                               $value
+     * @param Attribute $attribute
+     * @param mixed     $value
      *
      * @return $this
      */
@@ -426,7 +413,7 @@ trait Attributable
     /**
      * Get the attributes attached to this entity.
      *
-     * @return \Illuminate\Database\Eloquent\Collection|null
+     * @return Collection|null
      */
     public function attributes(): ?Collection
     {
@@ -436,11 +423,11 @@ trait Attributable
     /**
      * Scope query with the given entity attribute.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param string                                $key
-     * @param mixed                                 $value
+     * @param Builder $builder
+     * @param string  $key
+     * @param mixed   $value
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function scopeHasAttribute(Builder $builder, string $key, $value): Builder
     {
@@ -452,8 +439,8 @@ trait Attributable
     /**
      * Dynamically pipe calls to attribute relations.
      *
-     * @param string $method
-     * @param array  $parameters
+     * @param $method
+     * @param $parameters
      *
      * @return mixed
      */

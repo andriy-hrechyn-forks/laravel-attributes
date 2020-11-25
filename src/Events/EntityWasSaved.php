@@ -5,27 +5,29 @@ declare(strict_types=1);
 namespace Rinvex\Attributes\Events;
 
 use Exception;
+use Illuminate\Support\Collection;
 use Rinvex\Attributes\Models\Value;
 use Rinvex\Attributes\Support\ValueCollection;
 use Illuminate\Database\Eloquent\Model as Entity;
+use Throwable;
 
 class EntityWasSaved
 {
     /**
      * The trash collection.
      *
-     * @var \Illuminate\Support\Collection
+     * @var Collection
      */
     protected $trash;
 
     /**
      * Save values when an entity is saved.
      *
-     * @param \Illuminate\Database\Eloquent\Model $entity
-     *
-     * @throws \Exception
+     * @param Entity $entity
      *
      * @return void
+     * @throws Exception|Throwable
+     *
      */
     public function handle(Entity $entity): void
     {
@@ -80,7 +82,7 @@ class EntityWasSaved
     /**
      * Save or trash the given value according to it's content.
      *
-     * @param \Rinvex\Attributes\Models\Value $value
+     * @param Value $value
      *
      * @return void
      */
@@ -101,7 +103,7 @@ class EntityWasSaved
     /**
      * Trash the given value.
      *
-     * @param \Rinvex\Attributes\Models\Value $value
+     * @param Value $value
      *
      * @return bool
      */

@@ -4,20 +4,22 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Rinvex\Attributes\Models\AttributeEntity.
  *
- * @property int                 $attribute_id
- * @property string              $entity_type
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property int         $attribute_id
+ * @property string      $entity_type
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\AttributeEntity whereAttributeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\AttributeEntity whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\AttributeEntity whereEntityType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Attributes\Models\AttributeEntity whereUpdatedAt($value)
+ * @method static Builder|AttributeEntity whereAttributeId($value)
+ * @method static Builder|AttributeEntity whereCreatedAt($value)
+ * @method static Builder|AttributeEntity whereEntityType($value)
+ * @method static Builder|AttributeEntity whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class AttributeEntity extends Model

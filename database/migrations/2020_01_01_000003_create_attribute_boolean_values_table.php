@@ -15,7 +15,7 @@ class CreateAttributeBooleanValuesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(config('rinvex.attributes.tables.attribute_boolean_values'), function (Blueprint $table) {
+        Schema::create('attribute_boolean_values', function (Blueprint $table) {
             // Columns
             $table->increments('id');
             $table->boolean('content');
@@ -25,7 +25,7 @@ class CreateAttributeBooleanValuesTable extends Migration
             $table->timestamps();
 
             // Indexes
-            $table->foreign('attribute_id')->references('id')->on(config('rinvex.attributes.tables.attributes'))
+            $table->foreign('attribute_id')->references('id')->on('attributes')
                   ->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -37,6 +37,6 @@ class CreateAttributeBooleanValuesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists(config('rinvex.attributes.tables.attribute_boolean_values'));
+        Schema::dropIfExists('attribute_boolean_values');
     }
 }

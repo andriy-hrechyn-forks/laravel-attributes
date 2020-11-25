@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Rinvex\Attributes\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Rinvex\Support\Traits\ValidatingTrait;
+use Rinvex\Attributes\Traits\ValidatingTrait;
 use Rinvex\Attributes\Support\ValueCollection;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -49,7 +49,7 @@ abstract class Value extends Model
     /**
      * Relationship to the attribute entity.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function attribute(): BelongsTo
     {
@@ -59,7 +59,7 @@ abstract class Value extends Model
     /**
      * Polymorphic relationship to the entity instance.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     * @return MorphTo
      */
     public function entity(): MorphTo
     {

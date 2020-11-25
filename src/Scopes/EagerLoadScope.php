@@ -14,8 +14,8 @@ class EagerLoadScope implements Scope
     /**
      * Apply the scope to a given Eloquent query builder.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param \Illuminate\Database\Eloquent\Model   $entity
+     * @param Builder $builder
+     * @param Entity  $entity
      *
      * @return void
      */
