@@ -32,7 +32,7 @@ class RollbackCommand extends Command
         $this->alert($this->description);
 
         $path = config('rinvex.attributes.autoload_migrations') ?
-            'vendor/rinvex/laravel-attributes/database/migrations' :
+            'vendor/andriy-hrechyn-forks/laravel-attributes/database/migrations' :
             'database/migrations/rinvex/laravel-attributes';
 
         if (file_exists($path)) {
