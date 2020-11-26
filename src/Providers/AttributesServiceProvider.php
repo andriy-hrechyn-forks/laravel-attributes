@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rinvex\Attributes\Providers;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Attributes\Models\Attribute;
 use Rinvex\Attributes\Models\AttributeEntity;
@@ -57,5 +58,15 @@ class AttributesServiceProvider extends ServiceProvider
         $this->publishesConfig('andriy-hrechyn-forks/laravel-attributes');
         $this->publishesMigrations('andriy-hrechyn-forks/laravel-attributes');
         ! $this->autoloadMigrations('andriy-hrechyn-forks/laravel-attributes') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+
+        // Add strip_tags validation rule
+        Validator::extend('strip_tags', function ($attribute, $value) {
+            return strip_tags($value) === $value;
+        }, trans('validation.invalid_strip_tags'));
+
+        // Add time offset validation rule
+        Validator::extend('timeoffset', function ($attribute, $value) {
+            return array_key_exists($value, timeoffsets());
+        }, trans('validation.invalid_timeoffset'));
     }
 }

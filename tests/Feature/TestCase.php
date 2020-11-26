@@ -28,7 +28,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         ]);
 
         // Push your entity fully qualified namespace
-        app('rinvex.attributes.entities')->push(User::class);
+        app('attributes.entities')->push(User::class);
     }
 
     protected function getEnvironmentSetUp($app)
